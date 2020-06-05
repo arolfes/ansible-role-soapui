@@ -9,6 +9,9 @@ env:
 jobs:
   include:
     - env:
+        - MOLECULE_SCENARIO=default
+        - MOLECULEW_ANSIBLE=2.9.1
+    - env:
         - MOLECULE_SCENARIO=ubuntu-min-soapui-min
         - MOLECULEW_ANSIBLE=2.7.15
     - env:
