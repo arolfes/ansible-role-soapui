@@ -9,22 +9,22 @@ lint:
   name: yamllint
 
 platforms:
-  - name: ansible-role-soapui-ubuntu-min
-    image: ubuntu:20.04
+  - name: ansible-role-soapui-centos-max
+    image: centos:8
     dockerfile: ../default/Dockerfile.j2
 
 provisioner:
   name: ansible
   playbooks:
-    converge: ../soapui-min/playbook.yml
+    converge: ../soapui-max/playbook.yml
   lint:
     name: ansible-lint
 
 scenario:
-  name: ubuntu-max-soapui-min
+  name: centos-max-soapui-max
 
 verifier:
   name: testinfra
-  directory: ../soapui-min/tests
+  directory: ../soapui-max/tests
   lint:
     name: flake8

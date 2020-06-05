@@ -21,7 +21,7 @@ provisioner:
     name: ansible-lint
 
 scenario:
-  name: ubuntu-min-soapui-max
+  name: ubuntu-max-soapui-max
 
 verifier:
   name: testinfra

@@ -1,6 +1,10 @@
 Ansible Role: SOAPUI Community Edition
 ======================================
 
+[![Build Status](https://travis-ci.org/arolfes/ansible-role-soapui.svg?branch=master)](https://travis-ci.org/arolfes/ansible-role-soapui)
+[![Ansible Galaxy](https://img.shields.io/badge/ansible--galaxy-arolfes.soapui-blue.svg)](https://galaxy.ansible.com/arolfes/soapui)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/arolfes/ansible-role-soapui/master/LICENSE)
+
 Role to install the SoapUI CE **without JDK**.
 
 **Important:** This ansible role is based on [GANTSIGN ansible-role-golang](https://github.com/gantsign/ansible-role-golang) 
@@ -10,7 +14,7 @@ Role to install the SoapUI CE **without JDK**.
 Requirements
 ------------
 
-* Ansible >= 2.7
+* Ansible >= 2.8.0
 
 * Linux Distribution
 
@@ -21,6 +25,27 @@ Requirements
             * Bionic (18.04)
             * Focal (20.04)
 
+        * Debian
+
+            * Stretch (9)
+            * Buster (10)
+
+    * RedHat Family
+
+        * CentOS
+
+            * 7
+            * 8
+
+        * Fedora
+
+            * 31
+
+    * SUSE Family
+
+        * openSUSE
+
+            * 15.1
 
     * Note: other versions are likely to work but have not been tested.
 
