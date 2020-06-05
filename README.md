@@ -14,7 +14,7 @@ Role to install the SoapUI CE **without JDK**.
 Requirements
 ------------
 
-* Ansible >= 2.7
+* Ansible >= 2.8.0
 
 * Linux Distribution
 
@@ -25,6 +25,27 @@ Requirements
             * Bionic (18.04)
             * Focal (20.04)
 
+        * Debian
+
+            * Stretch (9)
+            * Buster (10)
+
+    * RedHat Family
+
+        * CentOS
+
+            * 7
+            * 8
+
+        * Fedora
+
+            * 31
+
+    * SUSE Family
+
+        * openSUSE
+
+            * 15.1
 
     * Note: other versions are likely to work but have not been tested.
 
