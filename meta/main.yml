@@ -1,5 +1,6 @@
 ---
 galaxy_info:
+  role_name: soapui
   author: Alexander Rolfes
   description: Role for installing SoapUI.
   license: MIT
