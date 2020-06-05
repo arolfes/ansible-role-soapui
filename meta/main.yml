@@ -16,7 +16,7 @@ galaxy_info:
     - name: Fedora
       versions:
         - 31
-    - name: CentOS
+    - name: EL
       versions:
         - 7
         - 8
