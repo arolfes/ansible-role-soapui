@@ -7,12 +7,12 @@ galaxy_info:
   platforms:
     - name: Ubuntu
       versions:
-        - 18.04
-        - 20.04
+        - bionic
+        - focal
     - name: Debian
       versions:
-        - 9
-        - 10
+        - jessie
+        - buster
     - name: Fedora
       versions:
         - 31
@@ -22,7 +22,7 @@ galaxy_info:
         - 8
     - name: opensuse
       versions:
-        - 15
+        - 15.1
   galaxy_tags:
     - soapui
     - soap
