@@ -35,10 +35,10 @@ are shown below):
 soapui_version: '5.5.0'
 
 # Download url for SoapUI tarball
-soapui_download_url: 'https://dl.eviware.com/soapuios/{{ soapui_version }}/SoapUI-{{ soapui_version }}-linux-bin.tar.gz'
+soapui_download_url: 'http://dl.eviware.com/soapuios/{{ soapui_version }}'
 
 # Base installation directory
-soapui_install_dir: '/opt/go/{{ soapui_version }}'
+soapui_install_dir: '/opt/soapui/{{ soapui_version }}'
 
 # Directory to store files downloaded for SoapUI installation
 soapui_download_dir: "{{ x_ansible_download_dir | default(ansible_env.HOME + '/.ansible/tmp/downloads') }}"
@@ -64,6 +64,14 @@ Example Playbook
   roles:
      - role: arolfes.soapui
 ```
+You can install a specific version of SoapUI by specifying the soapui_version.
+```yaml
+- hosts: servers
+  roles:
+     - role: arolfes.soapui
+       soapui_version: '4.6.4'
+```
+
 
 Role Facts
 ----------
