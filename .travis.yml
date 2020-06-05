@@ -13,10 +13,10 @@ jobs:
         - MOLECULEW_ANSIBLE=2.9.1
     - env:
         - MOLECULE_SCENARIO=ubuntu-min-soapui-min
-        - MOLECULEW_ANSIBLE=2.7.15
+        - MOLECULEW_ANSIBLE=2.9.1
     - env:
         - MOLECULE_SCENARIO=ubuntu-min-soapui-max
-        - MOLECULEW_ANSIBLE=2.7.15
+        - MOLECULEW_ANSIBLE=2.8.12
     - env:
         - MOLECULE_SCENARIO=ubuntu-max-soapui-min
         - MOLECULEW_ANSIBLE=2.9.1
@@ -24,8 +24,8 @@ jobs:
         - MOLECULE_SCENARIO=ubuntu-max-soapui-max
         - MOLECULEW_ANSIBLE=2.9.1
 
-# Require Ubuntu 18.04
-dist: bionic
+# Require Ubuntu 20.04
+dist: focal
 
 # Require Docker
 services:
