@@ -1,0 +1,12 @@
+---
+# SOAPUI Version to download and unpack
+soapui_version: '5.5.0'
+
+# Download url for SoapUI tarball
+soapui_download_url: 'http://dl.eviware.com/soapuios/{{ soapui_version }}'
+
+# Base installation directory
+soapui_install_dir: '/opt/soapui/{{ soapui_version }}'
+
+# Directory to store files downloaded for SoapUI installation
+soapui_download_dir: "{{ x_ansible_download_dir | default(ansible_env.HOME + '/.ansible/tmp/downloads') }}"

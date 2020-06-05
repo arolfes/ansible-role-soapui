@@ -1,0 +1,16 @@
+---
+galaxy_info:
+  author: Alexander Rolfes
+  description: Role for installing SoapUI.
+  license: MIT
+  min_ansible_version: 2.7
+  platforms:
+    - name: Ubuntu
+      versions:
+        - bionic
+        - focal
+  galaxy_tags:
+    - soapui
+    - soap
+    - development
+dependencies: []

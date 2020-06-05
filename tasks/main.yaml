@@ -1,0 +1,93 @@
+---
+- name: load version vars
+  with_first_found:
+    - '../vars/versions/{{ soapui_version }}.yml'
+    - ../vars/versions/main.yml
+  include_vars: '{{ item }}'
+
+- name: assert version vars
+  assert:
+    that:
+      - "soapui_redis_sha256sum not in (None, '')"
+
+- name: create download directory
+  file:
+    state: directory
+    mode: 'u=rwx,go=rx'
+    dest: '{{ soapui_download_dir }}'
+
+- name: download SoapUI
+  get_url:
+    url: '{{ soapui_download_url }}/{{ soapui_redis_filename }}'
+    dest: '{{ soapui_download_dir }}/{{ soapui_redis_filename }}'
+    sha256sum: '{{ soapui_redis_sha256sum }}'
+    force: no
+    mode: 'u=rw,go=r'
+
+- name: create SoapUI installation directory
+  become: yes
+  file:
+    state: directory
+    owner: root
+    group: root
+    mode: 'u=rwx,go=rx'
+    dest: '{{ soapui_install_dir }}'
+
+- name: install unarchive dependencies (zypper)
+  become: yes
+  zypper:
+    name:
+      - gzip
+      - tar
+    state: present
+  when: ansible_pkg_mgr == 'zypper'
+
+- name: install SoapUI
+  become: yes
+  unarchive:
+    src: '{{ soapui_download_dir }}/{{ soapui_redis_filename }}'
+    remote_src: yes
+    extra_opts: '--strip-components=1'
+    dest: '{{ soapui_install_dir }}'
+    owner: root
+    group: root
+    creates: '{{ soapui_install_dir }}/bin'
+
+# Set SoapUI facts
+- name: create Ansible facts.d directory
+  become: yes
+  file:
+    state: directory
+    dest: /etc/ansible/facts.d
+    owner: root
+    group: root
+    mode: 'u=rwx,go=rx'
+
+- name: install SoapUI SDK facts
+  become: yes
+  template:
+    src: facts.j2
+    dest: /etc/ansible/facts.d/soapui.fact
+    owner: root
+    group: root
+    mode: 'u=rw,go=r'
+
+- name: re-read facts
+  setup:
+    filter: ansible_local
+
+- name: install SoapUI link
+  become: yes
+  file:
+    state: link
+    src: '{{ soapui_install_dir }}/bin/soapui.sh'
+    dest: '/usr/local/bin/soapui.sh'
+
+- name: install SoapUI desktop file
+  become: yes
+  template:
+    src: SoapUI.desktop.j2
+    dest: '/usr/share/applications/SoapUI.desktop'
+    owner: root
+    group: root
+    mode: 'u=rw,go=r'
