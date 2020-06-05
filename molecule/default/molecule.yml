@@ -9,11 +9,13 @@ lint:
   name: yamllint
 
 platforms:
-  - name: ansible-role-soapui-ubuntu-1804
-    image: ubuntu:18.04
+  - name: ansible-role-soapui-ubuntu-max
+    image: ubuntu:20.04
 
 provisioner:
   name: ansible
+  playbooks:
+    converge: ../soapui-max/playbook.yml
   lint:
     name: ansible-lint
 

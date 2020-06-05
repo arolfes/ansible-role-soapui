@@ -1,0 +1,7 @@
+---
+- name: Converge
+  hosts: all
+
+  roles:
+    - role: ansible-role-soapui
+      soapui_version: '5.5.0'
