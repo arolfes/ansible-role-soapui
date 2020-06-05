@@ -1,0 +1,30 @@
+---
+dependency:
+  name: galaxy
+
+driver:
+  name: docker
+
+lint:
+  name: yamllint
+
+platforms:
+  - name: ansible-role-soapui-debian-max
+    image: debian:10
+    dockerfile: ../default/Dockerfile.j2
+
+provisioner:
+  name: ansible
+  playbooks:
+    converge: ../soapui-max/playbook.yml
+  lint:
+    name: ansible-lint
+
+scenario:
+  name: debian-max-soapui-max
+
+verifier:
+  name: testinfra
+  directory: ../soapui-max/tests
+  lint:
+    name: flake8

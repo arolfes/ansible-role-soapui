@@ -12,11 +12,11 @@ testinfra_hosts = testinfra.utils.ansible_runner.AnsibleRunner(
 ])
 def test_soapui_installed(host, version_dir_pattern):
 
-    graalvm_home = host.check_output('find %s | grep --color=never -E %s',
-                                     '/opt/soapui/',
-                                     version_dir_pattern)
+    soapui_home = host.check_output('find %s | grep --color=never -E %s',
+                                    '/opt/soapui/',
+                                    version_dir_pattern)
 
-    soapui_sh = host.file(graalvm_home + '/bin/soapui.sh')
+    soapui_sh = host.file(soapui_home + '/bin/soapui.sh')
 
     assert soapui_sh.exists
     assert soapui_sh.is_file
