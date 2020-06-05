@@ -24,8 +24,8 @@ jobs:
         - MOLECULE_SCENARIO=ubuntu-max-soapui-max
         - MOLECULEW_ANSIBLE=2.9.1
 
-# Require Ubuntu 20.04
-dist: focal
+# Require Ubuntu 18.04
+dist: bionic
 
 # Require Docker
 services:
