@@ -96,6 +96,16 @@ You can install a specific version of SoapUI by specifying the soapui_version.
      - role: arolfes.soapui
        soapui_version: '4.6.4'
 ```
+Remember: This role doesn't provide a java runtime to execute SoapUI and it hasn't a dependency. 
+This example installs a jdk and the latest version from SoapUI.
+```yaml
+- hosts: servers
+  roles:
+    - role: gantsign.java
+      java_version: '8'
+      java_is_default_installation: yes
+    - role: arolfes.soapui
+```
 
 
 Role Facts
