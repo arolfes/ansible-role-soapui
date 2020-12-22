@@ -1,0 +1,59 @@
+---
+name: molecule tests
+
+on:
+  push:
+    branches:    
+      - '**'        # matches every branch
+  pull_request:
+    branches:
+      - 'master'
+
+jobs:
+  molecule:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        scenarios:
+          - default
+          - centos-max-soapui-max
+          - centos-min-soapui-min
+          - debian-max-soapui-max
+          - debian-min-soapui-min
+          - fedora-soapui-min
+          - opensuse-soapui-min
+          - ubuntu-max-soapui-max
+          - ubuntu-max-soapui-min
+          - ubuntu-min-soapui-max
+          - ubuntu-min-soapui-min
+      fail-fast: false
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.x
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pipenv
+
+      - name: Use Cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/pipenv
+          key: ${{ runner.os }}-pipenv-${{ hashFiles('**/Pipfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pipenv-
+
+      - name: Molecule install dependencies
+        run: ./moleculew wrapper-install
+
+      - name: Molecule display versions
+        run: ./moleculew wrapper-versions
+
+      - name: Molecule test
+        run: "./moleculew test --scenario-name=${{ matrix.scenarios }}"
