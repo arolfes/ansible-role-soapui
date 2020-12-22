@@ -9,7 +9,7 @@ lint:
   name: yamllint
 
 platforms:
-  - name: ansible-role-soapui-ubuntu-min
+  - name: ansible-role-soapui-ubuntu-max
     image: ubuntu:20.04
     dockerfile: ../default/Dockerfile.j2
 

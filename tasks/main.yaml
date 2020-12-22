@@ -53,6 +53,23 @@
     group: root
     creates: '{{ soapui_install_dir }}/bin'
 
+- name: fix for SoapUi 5.6.0 Check that the xmlbeans-xpath-2.6.0.jar exists
+  stat:
+    path: "{{ soapui_install_dir }}/lib/xmlbeans-xpath-2.6.0.jar"
+  register: xmlbeans_xpath_260_result
+  when:
+    - soapui_version in ('5.6.0')
+
+- name: fix for SoapUi 5.6.0
+  become: yes
+  command: " mv {{ item }} {{ item }}.old  "
+  with_items:
+    - "{{ soapui_install_dir }}/lib/xmlbeans-xpath-2.6.0.jar"
+    - "{{ soapui_install_dir }}/lib/xmlbeans-xmlpublic-2.6.0.jar"
+  when:
+    - soapui_version in ('5.6.0')
+    - xmlbeans_xpath_260_result.stat.exists
+
 # Set SoapUI facts
 - name: create Ansible facts.d directory
   become: yes

@@ -7,10 +7,6 @@ Ansible Role: SOAPUI Community Edition
 
 Role to install the SoapUI CE **without JDK**.
 
-**Important:** This ansible role is based on [GANTSIGN ansible-role-golang](https://github.com/gantsign/ansible-role-golang) 
-
-**Thanks** a lot to John and Gantsign for providing molecule wrapper script and awesome ansible roles which are available over ansible-galaxy.
-
 Requirements
 ------------
 
@@ -57,7 +53,7 @@ are shown below):
 
 ```yaml
 # SOAPUI Version to download and unpack
-soapui_version: '5.5.0'
+soapui_version: '5.6.0'
 
 # Download url for SoapUI tarball
 soapui_download_url: 'http://dl.eviware.com/soapuios/{{ soapui_version }}'
@@ -73,6 +69,7 @@ soapui_download_dir: "{{ x_ansible_download_dir | default(ansible_env.HOME + '/.
 
 The following versions of SoapUI are supported without any additional configuration
 
+* 5.6.0
 * 5.5.0
 * 5.2.1
 * 5.2.0
@@ -115,11 +112,11 @@ This role exports the following Ansible facts for use by other roles:
 
 * `ansible_local.soapui.general.version`
 
-    * e.g. `5.5.0`
+    * e.g. `5.6.0`
 
 * `ansible_local.soapui.general.home`
 
-    * e.g. `/opt/soapui/5.5.0`
+    * e.g. `/opt/soapui/5.6.0`
 
 Development & Testing
 ---------------------

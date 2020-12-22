@@ -1,6 +1,6 @@
 ---
 # SOAPUI Version to download and unpack
-soapui_version: '5.5.0'
+soapui_version: '5.6.0'
 
 # Download url for SoapUI tarball
 soapui_download_url: 'http://dl.eviware.com/soapuios/{{ soapui_version }}'
