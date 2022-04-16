@@ -11,7 +11,7 @@ indent_size = 4
 trim_trailing_whitespace = true
 
 # Files with a smaller indent
-[*.{md,yml}]
+[*.yml]
 indent_size = 2
 
 # Jinja2 template files
