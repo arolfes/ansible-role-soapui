@@ -9,5 +9,5 @@
     - name: verify soapui facts
       assert:
         that:
-          - ansible_local.soapui.general.version == '5.6.0'
-          - ansible_local.soapui.general.home == '/opt/soapui/5.6.0'
+          - ansible_local.soapui.general.version == '5.7.0'
+          - ansible_local.soapui.general.home == '/opt/soapui/5.7.0'

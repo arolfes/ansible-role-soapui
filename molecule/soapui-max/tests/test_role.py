@@ -8,7 +8,7 @@ testinfra_hosts = testinfra.utils.ansible_runner.AnsibleRunner(
 
 
 @pytest.mark.parametrize('version_dir_pattern', [
-    '5.6.0$'
+    '5.7.0$'
 ])
 def test_soapui_installed(host, version_dir_pattern):
 
@@ -23,24 +23,6 @@ def test_soapui_installed(host, version_dir_pattern):
     assert soapui_sh.user == 'root'
     assert soapui_sh.group == 'root'
     assert oct(soapui_sh.mode) == '0o755'
-
-
-@pytest.mark.parametrize('version_dir_pattern', [
-    '5.6.0$'
-])
-def test_fix_for_560(host, version_dir_pattern):
-
-    soapui_home = host.check_output('find %s | grep --color=never -E %s',
-                                    '/opt/soapui/',
-                                    version_dir_pattern)
-
-    xmlbeans_xpath_old = host.file(soapui_home +
-                                   '/lib/xmlbeans-xpath-2.6.0.jar.old')
-    xmlbeans_xmlpublic_old = host.file(soapui_home +
-                                       '/lib/xmlbeans-xmlpublic-2.6.0.jar.old')
-
-    assert xmlbeans_xpath_old.exists
-    assert xmlbeans_xmlpublic_old.exists
 
 
 def test_soapui(host):
