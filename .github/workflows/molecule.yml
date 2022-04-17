@@ -17,12 +17,11 @@ jobs:
       matrix:
         scenarios:
           - default
-          - centos-max-soapui-max
-          - centos-min-soapui-min
           - debian-max-soapui-max
           - debian-min-soapui-min
           - fedora-soapui-min
           - opensuse-soapui-min
+          - ubi-max-soapui-max
           - ubuntu-max-soapui-max
           - ubuntu-max-soapui-min
           - ubuntu-min-soapui-max

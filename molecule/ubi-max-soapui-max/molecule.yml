@@ -13,7 +13,7 @@ lint: |
 
 platforms:
   - name: ansible-role-soapui-centos-max
-    image: centos:8
+    image: redhat/ubi8
     dockerfile: ../default/Dockerfile.j2
 
 provisioner:
@@ -22,7 +22,7 @@ provisioner:
     converge: ../soapui-max/playbook.yml
 
 scenario:
-  name: centos-max-soapui-max
+  name: ubi-max-soapui-max
 
 verifier:
   name: testinfra

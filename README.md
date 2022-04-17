@@ -28,9 +28,8 @@ Requirements
 
     * RedHat Family
 
-        * CentOS
+        * UBI
 
-            * 7
             * 8
 
         * Fedora
