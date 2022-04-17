@@ -108,3 +108,35 @@
     owner: root
     group: root
     mode: 'u=rw,go=r'
+
+- name: 'find all sh files in {{ soapui_install_dir }}'
+  find:
+    paths: '{{ soapui_install_dir }}/bin'
+    patterns: '*.sh'
+  register: soapui_sh_files
+  when: not soapui_java_home in (None, '', omit)
+
+- name: extend path with java bin folder in soapui sh files
+  become: yes
+  lineinfile:
+    dest: '{{ item.path }}'
+    insertafter: '#!/bin/sh'
+    line: 'PATH={{ soapui_java_home }}/bin:$PATH'
+  loop: '{{ soapui_sh_files.files }}'
+  when: not soapui_java_home in (None, '', omit)
+
+#- name: "Display /opt/soapui/5.7.0/bin/updateinstallation.sh contents"
+#  command: cat /opt/soapui/5.7.0/bin/updateinstallation.sh
+#  register: command_output
+#
+#- name: "Print to console /opt/soapui/5.7.0/bin/updateinstallation.sh"
+#  debug:
+#    msg: "{{ command_output.stdout }}"
+#
+#- name: "Display /opt/soapui/5.7.0/bin/bin/soapui.sh contents"
+#  command: "cat /opt/soapui/5.7.0/bin/soapui.sh"
+#  register: command_output2
+#
+#- name: Print to console /opt/soapui/5.7.0/bin/soapui.sh
+#  debug:
+#    msg: "{{ command_output2.stdout }}"

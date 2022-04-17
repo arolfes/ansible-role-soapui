@@ -10,3 +10,6 @@ soapui_install_dir: '/opt/soapui/{{ soapui_version }}'
 
 # Directory to store files downloaded for SoapUI installation
 soapui_download_dir: "{{ x_ansible_download_dir | default(ansible_env.HOME + '/.ansible/tmp/downloads') }}"
+
+# adds path with bin folder to PATH variable in all sh scripts 
+soapui_java_home:

@@ -1,0 +1,39 @@
+---
+dependency:
+  name: galaxy
+
+driver:
+  name: docker
+
+lint: |
+  set -e
+  yamllint .
+  ansible-lint
+  flake8
+
+platforms:
+  - name: ansible-role-soapui-ubuntu-min
+    image: ubuntu:20.04
+    dockerfile: ../default/Dockerfile.j2
+
+provisioner:
+  name: ansible
+  playbooks:
+    converge: playbook.yml
+  lint: |
+    set -e
+    yamllint .
+    ansible-lint
+    flake8
+  options:
+    v: true
+
+
+scenario:
+  name: ubuntu-max-soapui-max-java-home
+
+verifier:
+  name: testinfra
+  directory: tests
+  lint:
+    name: flake8

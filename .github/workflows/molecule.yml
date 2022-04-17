@@ -23,6 +23,7 @@ jobs:
           - opensuse-soapui-min
           - ubi-max-soapui-max
           - ubuntu-max-soapui-max
+          - ubuntu-max-soapui-max-java-home
           - ubuntu-max-soapui-min
           - ubuntu-min-soapui-max
           - ubuntu-min-soapui-min
