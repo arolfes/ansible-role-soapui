@@ -88,6 +88,7 @@ Installs latest version from SoapUI
   roles:
      - role: arolfes.soapui
 ```
+
 You can install a specific version of SoapUI by specifying the soapui_version.
 ```yaml
 - hosts: servers
@@ -95,6 +96,19 @@ You can install a specific version of SoapUI by specifying the soapui_version.
      - role: arolfes.soapui
        soapui_version: '4.6.4'
 ```
+
+You can change the java_home for all soapui *.sh files
+```yaml
+- hosts: servers
+  roles:
+     - role: arolfes.soapui
+       soapui_version: '4.6.4'
+       soapui_java_home: /opt/java
+```
+This will add a new line to each shell file in `{{ soapui_install_dir }}/bin`
+Content of the new line `PATH=/opt/java/bin:$PATH`
+With this simple approach you can have multiple JDKs and SoapUI uses that one related for it.
+
 Remember: This role doesn't provide a java runtime to execute SoapUI and it hasn't a dependency. 
 This example installs a jdk and the latest version from SoapUI.
 ```yaml

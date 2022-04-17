@@ -1,0 +1,15 @@
+---
+- name: Converge
+  hosts: all
+
+  roles:
+    - role: ansible-role-soapui
+      soapui_version: '5.7.0'
+      soapui_java_home: /opt/java
+
+  post_tasks:
+    - name: verify soapui facts
+      assert:
+        that:
+          - ansible_local.soapui.general.version == '5.7.0'
+          - ansible_local.soapui.general.home == '/opt/soapui/5.7.0'
