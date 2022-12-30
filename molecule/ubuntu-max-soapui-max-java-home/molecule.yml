@@ -8,26 +8,19 @@ driver:
 lint: |
   set -e
   yamllint .
-  ansible-lint
+  ansible-lint .
   flake8
 
 platforms:
   - name: ansible-role-soapui-ubuntu-min
-    image: ubuntu:20.04
-    dockerfile: ../default/Dockerfile.j2
+    image: ubuntu:22.04
 
 provisioner:
   name: ansible
   playbooks:
-    converge: playbook.yml
-  lint: |
-    set -e
-    yamllint .
-    ansible-lint
-    flake8
+    converge: converge.yml
   options:
     v: true
-
 
 scenario:
   name: ubuntu-max-soapui-max-java-home
@@ -35,5 +28,3 @@ scenario:
 verifier:
   name: testinfra
   directory: tests
-  lint:
-    name: flake8
