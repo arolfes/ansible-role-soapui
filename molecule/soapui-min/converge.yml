@@ -1,0 +1,29 @@
+---
+- name: Converge
+  hosts: all
+
+  roles:
+    - role: ansible-role-soapui
+      soapui_version: '4.6.4'
+
+  post_tasks:
+    - name: verify soapui facts
+      assert:
+        that:
+          - ansible_local.soapui.general.version == '4.6.4'
+          - ansible_local.soapui.general.home == '/opt/soapui/4.6.4'
+
+    - name: install find - required for tests (dnf)
+      dnf:
+        name:
+          - findutils
+          - which
+        state: present
+      when: ansible_pkg_mgr == 'dnf'
+
+    - name: install which - required for tests (zypper)
+      zypper:
+        name:
+          - which
+        state: present
+      when: ansible_pkg_mgr == 'zypper'
