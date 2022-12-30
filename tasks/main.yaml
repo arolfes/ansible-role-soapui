@@ -6,18 +6,18 @@
   include_vars: '{{ item }}'
 
 - name: assert version vars
-  assert:
+  ansible.builtin.assert:
     that:
       - "soapui_redis_sha256sum not in (None, '')"
 
 - name: create download directory
-  file:
+  ansible.builtin.file:
     state: directory
     mode: 'u=rwx,go=rx'
     dest: '{{ soapui_download_dir }}'
 
 - name: download SoapUI
-  get_url:
+  ansible.builtin.get_url:
     url: '{{ soapui_download_url }}/{{ soapui_redis_filename }}'
     dest: '{{ soapui_download_dir }}/{{ soapui_redis_filename }}'
     checksum: 'sha256:{{ soapui_redis_sha256sum }}'
@@ -26,7 +26,7 @@
 
 - name: create SoapUI installation directory
   become: yes
-  file:
+  ansible.builtin.file:
     state: directory
     owner: root
     group: root
@@ -35,7 +35,7 @@
 
 - name: install unarchive dependencies (zypper)
   become: yes
-  zypper:
+  ansible.builtin.zypper:
     name:
       - gzip
       - tar
@@ -44,7 +44,7 @@
 
 - name: install SoapUI
   become: yes
-  unarchive:
+  ansible.builtin.unarchive:
     src: '{{ soapui_download_dir }}/{{ soapui_redis_filename }}'
     remote_src: yes
     extra_opts: '--strip-components=1'
@@ -54,7 +54,7 @@
     creates: '{{ soapui_install_dir }}/bin'
 
 - name: fix for SoapUi 5.6.0 Check that the xmlbeans-xpath-2.6.0.jar exists
-  stat:
+  ansible.builtin.stat:
     path: "{{ soapui_install_dir }}/lib/xmlbeans-xpath-2.6.0.jar"
   register: xmlbeans_xpath_260_result
   when:
@@ -62,7 +62,7 @@
 
 - name: fix for SoapUi 5.6.0
   become: yes
-  command: " mv {{ item }} {{ item }}.old  "
+  ansible.builtin.command: " mv {{ item }} {{ item }}.old  "
   with_items:
     - "{{ soapui_install_dir }}/lib/xmlbeans-xpath-2.6.0.jar"
     - "{{ soapui_install_dir }}/lib/xmlbeans-xmlpublic-2.6.0.jar"
@@ -73,7 +73,7 @@
 # Set SoapUI facts
 - name: create Ansible facts.d directory
   become: yes
-  file:
+  ansible.builtin.file:
     state: directory
     dest: /etc/ansible/facts.d
     owner: root
@@ -82,7 +82,7 @@
 
 - name: install SoapUI SDK facts
   become: yes
-  template:
+  ansible.builtin.template:
     src: facts.j2
     dest: /etc/ansible/facts.d/soapui.fact
     owner: root
@@ -90,19 +90,19 @@
     mode: 'u=rw,go=r'
 
 - name: re-read facts
-  setup:
+  ansible.builtin.setup:
     filter: ansible_local
 
 - name: install SoapUI link
   become: yes
-  file:
+  ansible.builtin.file:
     state: link
     src: '{{ soapui_install_dir }}/bin/soapui.sh'
     dest: '/usr/local/bin/soapui.sh'
 
 - name: install SoapUI desktop file
   become: yes
-  template:
+  ansible.builtin.template:
     src: SoapUI.desktop.j2
     dest: '/usr/share/applications/SoapUI.desktop'
     owner: root
@@ -110,7 +110,7 @@
     mode: 'u=rw,go=r'
 
 - name: 'find all sh files in {{ soapui_install_dir }}'
-  find:
+  ansible.builtin.find:
     paths: '{{ soapui_install_dir }}/bin'
     patterns: '*.sh'
   register: soapui_sh_files
@@ -118,25 +118,9 @@
 
 - name: extend path with java bin folder in soapui sh files
   become: yes
-  lineinfile:
+  ansible.builtin.lineinfile:
     dest: '{{ item.path }}'
     insertafter: '#!/bin/sh'
     line: 'PATH={{ soapui_java_home }}/bin:$PATH'
   loop: '{{ soapui_sh_files.files }}'
   when: not soapui_java_home in (None, '', omit)
-
-#- name: "Display /opt/soapui/5.7.0/bin/updateinstallation.sh contents"
-#  command: cat /opt/soapui/5.7.0/bin/updateinstallation.sh
-#  register: command_output
-#
-#- name: "Print to console /opt/soapui/5.7.0/bin/updateinstallation.sh"
-#  debug:
-#    msg: "{{ command_output.stdout }}"
-#
-#- name: "Display /opt/soapui/5.7.0/bin/bin/soapui.sh contents"
-#  command: "cat /opt/soapui/5.7.0/bin/soapui.sh"
-#  register: command_output2
-#
-#- name: Print to console /opt/soapui/5.7.0/bin/soapui.sh
-#  debug:
-#    msg: "{{ command_output2.stdout }}"
