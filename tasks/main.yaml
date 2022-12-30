@@ -20,7 +20,7 @@
   get_url:
     url: '{{ soapui_download_url }}/{{ soapui_redis_filename }}'
     dest: '{{ soapui_download_dir }}/{{ soapui_redis_filename }}'
-    sha256sum: '{{ soapui_redis_sha256sum }}'
+    checksum: 'sha256:{{ soapui_redis_sha256sum }}'
     force: no
     mode: 'u=rw,go=r'
 
